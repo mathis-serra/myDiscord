@@ -2,7 +2,7 @@ from Database import DatabaseConnect
 import mysql
 
 class Authentification():
-    def __init__(self, db):
+    def __init__(self):
         self.db = DatabaseConnect()
         self.db.connect()
     

@@ -15,8 +15,7 @@ pygame.display.set_caption('Sficord')
 #Variables Couleurs et Texte
 blue ="#143263"
 white="#ffffff"
-
-connexion_button = Button("Connexion", (50, 170), (30, 35),Authentification.login(), color=white)
+connexion_button = Button("Connexion", (50, 170), (30, 35), Authentification(), white, width=200, height=50)
 
 #Variables images
 background = pygame.image.load('Data/Pictures/ghibli_background.jpg')
@@ -32,9 +31,8 @@ def Interface():
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
 
-    
-
     screen.blit(background,(0,0))
+    connexion_button.draw(screen)
     screen.blit(titre_texte, titre_rect)
 
 run = True
@@ -44,10 +42,8 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    connexion_button.handle_event(event)
-    connexion_button.draw(screen)
+        connexion_button.handle_event(event)
 
-        
     Interface()
     pygame.display.update()
 
