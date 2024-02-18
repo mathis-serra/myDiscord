@@ -23,6 +23,12 @@ password_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((
 # Variables Couleurs et Texte
 blue = "#143263"
 white = "#ffffff"
+font_before = pygame.font.Font("Data/Font/MickeyMouse.otf", 45)
+email_text_render = font_before.render("Email :", True, white)
+email_text_rect = email_text_render.get_rect(topleft=(260, 300))
+password_text_render = font_before.render("Password :", True, white)
+password_text_rect = password_text_render.get_rect(topleft=(200, 362))
+
 
 # Fonction de connexion
 def handle_login():
@@ -48,11 +54,13 @@ background = pygame.transform.scale(background, (screen_width+600, screen_height
 pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
-def Interface():
+def Interface1():
     font_title = pygame.font.Font("Data/Font/MickeyMouse.otf", 200)
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
     screen.blit(background, (0, 0))
+    screen.blit(email_text_render, email_text_rect)
+    screen.blit(password_text_render, password_text_rect)
     connexion_button.draw(screen)
     inscription_button.draw(screen)
     screen.blit(register_image, (640, 575))
@@ -70,7 +78,7 @@ while run:
         connexion_button.handle_event(event)
         inscription_button.handle_event(event)
 
-    Interface()
+    Interface1()
     pygame.display.update()
 
 pygame.quit()
