@@ -1,6 +1,9 @@
 import socket
 import threading
+from settings import db_connect
 
+
+cursor = db_connect().cursor()
 host = socket.gethostname()
 port = 5001
 
@@ -19,6 +22,13 @@ def broadcast(message, sender_client):
     for client in clients:
         if client != sender_client:  # Exclude the sender client
             client.send(message_with_nickname.encode())
+            
+            
+    query = "INSERT INTO messages (message, sender) VALUES (%s, %s)"
+    values = (message, sender_nickname)
+    cursor.execute(query, values)
+    db_connect().commit()
+
 
 def handle(client):
     while True:
