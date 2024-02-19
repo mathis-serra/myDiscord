@@ -34,15 +34,36 @@ password_text_rect = password_text_render.get_rect(topleft=(200, 362))
 def handle_login():
     email = email_entry.get_text()
     password = password_entry.get_text()
+    print(email,password)
     result = Authentification().login(email, password)
     if result["success"]:
         print("Connexion réussie !")
     else:
         print("Échec de la connexion :", result["message"])
 
+def Interface2():
+    global interface_first
+
+    screen.fill((0, 0, 0))
+    
+    interface_first=False
+    font_title = pygame.font.Font("Data/Font/MickeyMouse.otf", 200)
+    titre_texte = font_title.render('Sficord', True, white)
+    titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
+    inscription_button.draw(screen)
+    screen.blit(background, (0, 0))
+    screen.blit(email_text_render, email_text_rect)
+    screen.blit(password_text_render, password_text_rect)
+    screen.blit(register_image, (440, 435))
+    manager.update(0.01)
+    manager.draw_ui(screen)
+    screen.blit(titre_texte, titre_rect)
+
+    pygame.display.flip()
+
 # Boutons et images
 connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white, width=200, height=100)
-inscription_button = Button("Inscription", (700, 550), (36, 15), Authentification(), white, width=200, height=100)
+inscription_button = Button("Inscription", (700, 550), (36, 15), Interface2, white, width=200, height=100)
 register_image = pygame.image.load('Data/Pictures/register.png')
 register_image = pygame.transform.scale(register_image, (730, 350))
 login_image = pygame.image.load('Data/Pictures/login.png')
@@ -55,6 +76,9 @@ pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
 def Interface1():
+    global interface_first
+
+    interface_first=True
     font_title = pygame.font.Font("Data/Font/MickeyMouse.otf", 200)
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
@@ -69,16 +93,27 @@ def Interface1():
     manager.draw_ui(screen)
     screen.blit(titre_texte, titre_rect)
 
+
+
 run = True
+interface_first=True
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         manager.process_events(event) 
-        connexion_button.handle_event(event)
         inscription_button.handle_event(event)
 
-    Interface1()
+
+    if interface_first:
+        manager.process_events(event) 
+        connexion_button.handle_event(event)
+        Interface1()
+    else:
+        Interface2()
+    
+    manager.update(0.01)
+
     pygame.display.update()
 
 pygame.quit()
