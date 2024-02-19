@@ -1,32 +1,64 @@
 import socket
+import threading
 
+host = socket.gethostname()
+port = 5001
 
+server = socket.socket()
+server.bind((host, port))
+server.listen(2)
+print("Server is listening...")
 
-def server_program():
-    # get the hostname
-    host = socket.gethostname()
-    port = 5001  # initiate port no above 1024
+clients = []
+nicknames = []
 
-    server_socket = socket.socket()  # get instance
-    # look closely. The bind() function takes tuple as argument
-    server_socket.bind((host, port))  # bind host address and port together
+def broadcast(message, sender_client):
+    sender_index = clients.index(sender_client)
+    sender_nickname = nicknames[sender_index]
+    message_with_nickname = f"{sender_nickname}: {message.decode('utf-8')}"
+    for client in clients:
+        if client != sender_client:  # Exclude the sender client
+            client.send(message_with_nickname.encode())
 
-    # configure how many client the server can listen simultaneously
-    server_socket.listen(2)
-    conn, address = server_socket.accept()  # accept new connection
-    print("Connection from: " + str(address))
+def handle(client):
     while True:
-        # receive data stream. it won't accept data packet greater than 1024 bytes
-        data = conn.recv(1024).decode()
-        # if not data:
-        #     # if data is not received break
-        #     break
-        print("from connected user: " + str(data))
-        data = input(' -> ')
-        conn.send(data.encode())  # send data to the client
+        try:
+            message = client.recv(1024)
+            if message.decode('utf-8').lower() == "bye":
+                close_server()
+                break
+            broadcast(message, client)  # Broadcast the message to other clients
+        except Exception as e:
+            print("An error occurred:", str(e))
+            index = clients.index(client)
+            clients.remove(client)
+            client.close()
+            nickname = nicknames[index]
+            broadcast('{} left!'.format(nickname).encode('ascii'), client)
+            nicknames.remove(nickname)
+            break
 
-    conn.close()  # close the connection
+def receive():
+    while True:
+        client, address = server.accept()
+        print("Connected with {}".format(str(address)))
 
+        nickname = client.recv(1024).decode('ascii')
+        nicknames.append(nickname)
+        clients.append(client)
 
-if __name__ == '__main__':
-    server_program()
+        print("Nickname is {}".format(nickname))
+        broadcast("{} joined!".format(nickname).encode('ascii'), client)
+        client.send('Connected to server!'.encode('ascii'))
+
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
+
+def close_server():
+    for client in clients:
+        client.send("Server is closing...".encode())
+        client.close()
+    server.close()
+    print("Server closed.")
+
+receive()
