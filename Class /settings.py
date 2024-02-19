@@ -4,6 +4,6 @@ db = mysql.connect(
     host="localhost",
     user="root",
     passwd="dominique59",
-    database="discord"
+    database="myDiscord"
 )
 cursor = db.cursor()
