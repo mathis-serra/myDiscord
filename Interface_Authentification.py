@@ -19,7 +19,10 @@ email_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400
 # Nouvelle zone de saisie juste en dessous de la zone de saisie de l'email
 password_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 360), (400, 40)),
                                                      manager=manager)
-
+nom_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 420), (400, 40)),
+                                                    manager=manager)
+prenom_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 480), (400, 40)),
+                                                    manager=manager)
 # Variables Couleurs et Texte
 blue = "#143263"
 white = "#ffffff"
@@ -28,9 +31,13 @@ email_text_render = font_before.render("Email :", True, white)
 email_text_rect = email_text_render.get_rect(topleft=(260, 300))
 password_text_render = font_before.render("Password :", True, white)
 password_text_rect = password_text_render.get_rect(topleft=(200, 362))
+nom_text_render = font_before.render("Nom :", True, white)
+nom_text_rect = nom_text_render.get_rect(topleft=(280, 420))
+prenom_text_render = font_before.render("Prenom :", True, white)
+prenom_text_rect = password_text_render.get_rect(topleft=(235, 482))
 
 
-# Fonction de connexion
+# Fonction de connexion et Interface
 def handle_login():
     email = email_entry.get_text()
     password = password_entry.get_text()
@@ -41,6 +48,28 @@ def handle_login():
     else:
         print("Échec de la connexion :", result["message"])
 
+def handle_register():
+    email = email_entry.get_text()
+    password = password_entry.get_text()
+    nom = nom_entry.get_text()
+    prenom = prenom_entry.get_text()
+    print(email,password,nom,prenom)
+
+    result = Authentification().register(email, password, nom, prenom)
+
+    if result["success"]:
+        print("Inscription réussie !")
+    else:
+        print("Échec de l'inscription :", result["message"])
+
+def hide_entry():
+    nom_entry.hide()
+    prenom_entry.hide()
+
+def show_entry():
+    nom_entry.show()
+    prenom_entry.show()
+
 def Interface2():
     global interface_first
 
@@ -50,20 +79,22 @@ def Interface2():
     font_title = pygame.font.Font("Data/Font/MickeyMouse.otf", 200)
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
-    inscription_button.draw(screen)
+    inscription2_button.draw(screen)
     screen.blit(background, (0, 0))
     screen.blit(email_text_render, email_text_rect)
     screen.blit(password_text_render, password_text_rect)
-    screen.blit(register_image, (440, 435))
-    manager.update(0.01)
+    screen.blit(nom_text_render, nom_text_rect)
+    screen.blit(prenom_text_render, prenom_text_rect)
+    screen.blit(register_image, (250, 435))
     manager.draw_ui(screen)
     screen.blit(titre_texte, titre_rect)
-
+    manager.update(0.01)
     pygame.display.flip()
 
 # Boutons et images
 connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white, width=200, height=100)
 inscription_button = Button("Inscription", (700, 550), (36, 15), Interface2, white, width=200, height=100)
+inscription2_button = Button("Inscription2", (500, 550), (36, 15), handle_register, white, width=200, height=100)
 register_image = pygame.image.load('Data/Pictures/register.png')
 register_image = pygame.transform.scale(register_image, (730, 350))
 login_image = pygame.image.load('Data/Pictures/login.png')
@@ -92,7 +123,7 @@ def Interface1():
     manager.update(0.01)
     manager.draw_ui(screen)
     screen.blit(titre_texte, titre_rect)
-
+    hide_entry()
 
 
 run = True
@@ -106,11 +137,13 @@ while run:
 
 
     if interface_first:
-        manager.process_events(event) 
         connexion_button.handle_event(event)
         Interface1()
     else:
+        inscription2_button.handle_event(event)
+        show_entry()
         Interface2()
+
     
     manager.update(0.01)
 
