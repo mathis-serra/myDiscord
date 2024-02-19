@@ -80,31 +80,18 @@ def Interface2():
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
     inscription2_button.draw(screen)
+    return_button.draw(screen)
     screen.blit(background, (0, 0))
     screen.blit(email_text_render, email_text_rect)
     screen.blit(password_text_render, password_text_rect)
     screen.blit(nom_text_render, nom_text_rect)
     screen.blit(prenom_text_render, prenom_text_rect)
     screen.blit(register_image, (250, 435))
+    screen.blit(return_image, (0, 0))
     manager.draw_ui(screen)
     screen.blit(titre_texte, titre_rect)
     manager.update(0.01)
     pygame.display.flip()
-
-# Boutons et images
-connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white, width=200, height=100)
-inscription_button = Button("Inscription", (700, 550), (36, 15), Interface2, white, width=200, height=100)
-inscription2_button = Button("Inscription2", (500, 550), (36, 15), handle_register, white, width=200, height=100)
-register_image = pygame.image.load('Data/Pictures/register.png')
-register_image = pygame.transform.scale(register_image, (730, 350))
-login_image = pygame.image.load('Data/Pictures/login.png')
-login_image = pygame.transform.scale(login_image, (265, 210))
-background = pygame.image.load('Data/Pictures/ghibli_background.jpg')
-background = pygame.transform.scale(background, (screen_width+600, screen_height))  
-
-# Variables son
-pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
-pygame.mixer.music.play(-1)
 
 def Interface1():
     global interface_first
@@ -125,6 +112,24 @@ def Interface1():
     screen.blit(titre_texte, titre_rect)
     hide_entry()
 
+# Boutons et images
+connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white, width=200, height=100)
+inscription_button = Button("Inscription", (700, 550), (36, 15), Interface2, white, width=200, height=100)
+inscription2_button = Button("Inscription2", (500, 550), (36, 15), handle_register, white, width=200, height=100)
+return_button = Button("Return", (25, 30), (36, 15), Interface1, white, width=100, height=100)
+register_image = pygame.image.load('Data/Pictures/register.png')
+register_image = pygame.transform.scale(register_image, (730, 350))
+login_image = pygame.image.load('Data/Pictures/login.png')
+login_image = pygame.transform.scale(login_image, (265, 210))
+background = pygame.image.load('Data/Pictures/ghibli_background.jpg')
+background = pygame.transform.scale(background, (screen_width+600, screen_height))  
+return_image = pygame.image.load('Data/Pictures/return2.png')
+return_image = pygame.transform.scale(return_image, (150, 150))
+# Variables son
+pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
+pygame.mixer.music.play(-1)
+
+
 
 run = True
 interface_first=True
@@ -132,15 +137,19 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        manager.process_events(event) 
-        inscription_button.handle_event(event)
 
+        if interface_first:
+            manager.process_events(event) 
+            connexion_button.handle_event(event)
+            inscription_button.handle_event(event)
+        else:
+            manager.process_events(event) 
+            inscription2_button.handle_event(event)
+            return_button.handle_event(event)
 
     if interface_first:
-        connexion_button.handle_event(event)
         Interface1()
     else:
-        inscription2_button.handle_event(event)
         show_entry()
         Interface2()
 
