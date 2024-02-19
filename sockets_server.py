@@ -1,5 +1,5 @@
 import socket
-from sockets_client import client_program
+
 
 
 def server_program():
