@@ -1,9 +1,9 @@
-from Database import DatabaseConnect
+import settings
 import mysql
 
 class Authentification():
     def __init__(self):
-        self.db = DatabaseConnect()
+        self.db = mysql.connect()
         self.db.connect()
     
     def login(self, email, password):
@@ -32,7 +32,7 @@ class Authentification():
             if existing_user:
                 return {"success": False, "message": "Cet email est déjà associé à un compte"}
             
-            sql_insert = "INSERT INTO users (nom, prenom, email, password) VALUES (%s, %s, %s, %s)"
+            sql_insert = "INSERT INTO users (nom, prenom, email, passfword) VALUES (%s, %s, %s, %s)"
             self.db.cursor.execute(sql_insert, (nom, prenom, email, password))
             self.db.connection.commit()
             return {"success": True, "message": "Utilisateur enregistré avec succès"}

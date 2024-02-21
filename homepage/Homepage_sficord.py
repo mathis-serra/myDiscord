@@ -24,16 +24,12 @@ prenom_text_render = font_before.render("Prenom :", True, white)
 prenom_text_rect = password_text_render.get_rect(topleft=(235, 482))
 
 
+
 # Boutons et images
-register_image = pygame.image.load('Data/Pictures/register.png')
-register_image = pygame.transform.scale(register_image, (730, 350))
-login_image = pygame.image.load('Data/Pictures/login.png')
-login_image = pygame.transform.scale(login_image, (265, 210))
+
 background = pygame.image.load('Data/Pictures/ghibli_background.jpg')
 background = pygame.transform.scale(background, (screen_width+600, screen_height))  
-return_image = pygame.image.load('Data/Pictures/return2.png')
-return_image = pygame.transform.scale(return_image, (150, 150))
-# Variables son
+
 pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
