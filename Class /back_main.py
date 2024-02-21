@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import settings
+import server.settings as settings
 from channel import Channel
 from message import Message
 from role import Role

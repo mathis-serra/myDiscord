@@ -3,18 +3,19 @@ import mysql
 
 class Authentification():
     def __init__(self):
-        pass 
+        self.db = mysql.connect()
+        self.db.connect()
     
-    def login(self, email, password_hash):
+    def login(self, email, password):
         try:
-            sql = "SELECT id, password_hash, role FROM users WHERE email = %s"
-            settings.cursor.execute(sql, (email,))
-            user = settings.cursor.fetchone()
+            sql = "SELECT id, password, role FROM users WHERE email = %s"
+            self.db.cursor.execute(sql, (email,))
+            user = self.db.cursor.fetchone()
 
             if user:
-                id, db_password_hash, role = user
-                if password_hash == db_password_hash:
-                    return {"success": True, "id": id, "role": role}
+                user_id, db_password, role = user
+                if password == db_password:
+                    return {"success": True, "user_id": user_id, "role": role}
                 else:
                     return {"success": False, "message": "Mot de passe incorrect"}
             else:
@@ -23,29 +24,29 @@ class Authentification():
             print("Erreur lors de l'authentification:", err)
             return {"success": False, "message": "Erreur lors de l'authentification"}
         
-    def register(self, first_name, name, email, password_hash):
+    def register(self, nom, prenom, email, password):
         try:
             sql_check = "SELECT id FROM users WHERE email = %s"
-            settings.cursor.execute(sql_check, (email,))
-            existing_user = settings.cursor.fetchone()
+            self.db.cursor.execute(sql_check, (email,))
+            existing_user = self.db.cursor.fetchone()
             if existing_user:
                 return {"success": False, "message": "Cet email est déjà associé à un compte"}
             
-            sql_insert = "INSERT INTO users (first_name, name, email, password_hash) VALUES (%s, %s, %s, %s)"
-            settings.cursor.execute(sql_insert, (first_name, name, email, password_hash))
-            settings.db.commit()  # Assurez-vous de commettre les changements
+            sql_insert = "INSERT INTO users (nom, prenom, email, password) VALUES (%s, %s, %s, %s)"
+            self.db.cursor.execute(sql_insert, (nom, prenom, email, password))
+            self.db.connection.commit()
             return {"success": True, "message": "Utilisateur enregistré avec succès"}
         except mysql.connector.Error as err:
             print("Erreur lors de l'enregistrement de l'utilisateur:", err)
             return {"success": False, "message": "Erreur lors de l'enregistrement de l'utilisateur"}
         
-    def change_password_hash(self, email, old_password_hash, new_password_hash):
-        login_result = self.login(email, old_password_hash)
+    def change_password(self, email, old_password, new_password):
+        login_result = self.login(email, old_password)
         if login_result["success"]:
             try:
-                sql = "UPDATE users SET password_hash = %s WHERE email = %s"
-                settings.cursor.execute(sql, (new_password_hash, email))
-                settings.db.commit()
+                sql = "UPDATE users SET password = %s WHERE email = %s"
+                self.db.cursor.execute(sql, (new_password, email))
+                self.db.connection.commit()
                 return {"success": True, "message": "Mot de passe mis à jour avec succès"}
             except mysql.connector.Error as err:
                 print("Erreur lors de la mise à jour du mot de passe:", err)

@@ -1,5 +1,5 @@
 from datetime import datetime
-import settings
+import server.settings as settings
 
 
 class Server:
