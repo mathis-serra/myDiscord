@@ -1,9 +1,11 @@
+import datetime
 import socket
 import threading
-from settings import db_connect
+import settings
+import time 
 
 
-cursor = db_connect().cursor()
+
 host = socket.gethostname()
 port = 5001
 
@@ -15,19 +17,29 @@ print("Server is listening...")
 clients = []
 nicknames = []
 
+def send_message(content, user_id, channel_id):
+    sql = "INSERT INTO messages (user_id, channel_id, content, created_at, modified_at) VALUES (%s, %s, %s, %s, %s)"
+    val = (user_id, channel_id, content, datetime.datetime.now(), datetime.datetime.now())
+    settings.cursor.execute(sql, val)
+    settings.db.commit()
+    print(settings.cursor.rowcount, "record(s) inserted", datetime.datetime.now())
+
+
+
 def broadcast(message, sender_client):
     sender_index = clients.index(sender_client)
     sender_nickname = nicknames[sender_index]
     message_with_nickname = f"{sender_nickname}: {message.decode('utf-8')}"
+
+    # Insert message into the database
+    send_message(message, 1, 1)
+
+
     for client in clients:
         if client != sender_client:  # Exclude the sender client
             client.send(message_with_nickname.encode())
-            
-            
-    query = "INSERT INTO messages (message, sender) VALUES (%s, %s)"
-    values = (message, sender_nickname)
-    cursor.execute(query, values)
-    db_connect().commit()
+
+
 
 
 def handle(client):
