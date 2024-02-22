@@ -6,5 +6,5 @@ class Messages(BasePage):
         super().__init__(screen)
 
     def new_rect(self):
-        pygame.draw.rect(self.screen, self.beige, (500, 50,500,self.screen_height - 90), border_radius=30)
+        pygame.draw.rect(self.screen, self.beige, (430, 50,700,self.screen_height - 90), border_radius=30)
         pygame.display.update()
