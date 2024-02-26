@@ -35,20 +35,28 @@ nom_text_render = font_before.render("Nom :", True, white)
 nom_text_rect = nom_text_render.get_rect(topleft=(280, 420))
 prenom_text_render = font_before.render("Prenom :", True, white)
 prenom_text_rect = password_text_render.get_rect(topleft=(235, 482))
+inscription_fail_message = ""
+inscription_success_message = ""
+connection_fail_message = ""
 
 
 # Fonction de connexion et Interface
 def handle_login():
+    global connection_fail_message
+
     email = email_entry.get_text()
     password = password_entry.get_text()
     print(email,password)
     result = Authentification().login(email, password)
     if result["success"]:
         print("Connexion réussie !")
+        connection_fail_message = ""
     else:
         print("Échec de la connexion :", result["message"])
+        connection_fail_message = result["message"]
 
 def handle_register():
+    global inscription_fail_message,inscription_success_message
     email = email_entry.get_text()
     password = password_entry.get_text()
     nom = nom_entry.get_text()
@@ -59,8 +67,12 @@ def handle_register():
 
     if result["success"]:
         print("Inscription réussie !")
+        inscription_fail_message = ""
+        inscription_success_message = result["message"]
     else:
         print("Échec de l'inscription :", result["message"])
+        inscription_fail_message = result["message"]
+        inscription_success_message = ""
 
 def hide_entry():
     nom_entry.hide()
@@ -91,10 +103,22 @@ def Interface2():
     manager.draw_ui(screen)
     screen.blit(titre_texte, titre_rect)
     manager.update(0.01)
+
+    if inscription_success_message:
+        success_message_render = font_before.render(inscription_success_message, True, (0, 255, 0))
+        success_message_rect = success_message_render.get_rect(center=(screen_width // 2, 270))
+        screen.blit(success_message_render, success_message_rect)
+    
+    if inscription_fail_message:
+        fail_message_render = font_before.render(inscription_fail_message, True, (255, 0, 0))
+        fail_message_rect = fail_message_render.get_rect(center=(screen_width // 2, 270))
+        screen.blit(fail_message_render, fail_message_rect)
+
+
     pygame.display.flip()
 
 def Interface1():
-    global interface_first
+    global interface_first,connection_fail_message
 
     interface_first=True
     font_title = pygame.font.Font("Assets/Font/MickeyMouse.otf", 200)
@@ -111,6 +135,11 @@ def Interface1():
     manager.draw_ui(screen)
     screen.blit(titre_texte, titre_rect)
     hide_entry()
+
+    if connection_fail_message:
+        fail_connection_message_render = font_before.render(connection_fail_message, True, (255, 0, 0))
+        fail_connection_message_rect =fail_connection_message_render.get_rect(center=(screen_width // 2, 270))
+        screen.blit(fail_connection_message_render, fail_connection_message_rect)
 
 # Boutons et images
 connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white, width=200, height=100)
