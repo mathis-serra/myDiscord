@@ -10,8 +10,8 @@ class BasePage():
         self.white="#ffffff"
         self.blue = "#1769aa"
         self.beige="#d0c8b6"
-        self.font_before = pygame.font.Font("Data/Font/MickeyMouse.otf", 45)
-        self.background = pygame.image.load('Data/Pictures/home_background.png')
+        self.font_before = pygame.font.Font("Assets/Font/MickeyMouse.otf", 45)
+        self.background = pygame.image.load('Assets/Pictures/home_background.png')
         self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
         self.run = True
 

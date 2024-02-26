@@ -14,13 +14,13 @@ blue = "#143263"
 white = "#ffffff"
 grey="#5c5959"
 green="#396b3b"
-font_before = pygame.font.Font("Data/Font/MickeyMouse.otf", 45)
+font_before = pygame.font.Font("Assets/Font/MickeyMouse.otf", 45)
 
 # Boutons et images
-background = pygame.image.load('Data/Pictures/home_background.png')
+background = pygame.image.load('Assets/Pictures/home_background.png')
 background = pygame.transform.scale(background, (screen_width, screen_height))  
 
-pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
+pygame.mixer.music.load('Assets/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
 #rectangle
