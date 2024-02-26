@@ -1,5 +1,7 @@
 import socket
 import threading
+import mysql.connector
+import settings 
 
 def receive_messages(client_socket):
     while True:
@@ -17,7 +19,20 @@ def start_chat():
     client_socket = socket.socket()
     client_socket.connect((host, port))
 
-    nickname = input("Enter your nickname: ")
+     # Authentification de l'utilisateur
+    email = input("Enter your username: ")
+    password_hash = input("Enter your password: ")
+
+    # Vérification des informations d'authentification dans la base de donnéesa
+    settings.cursor.execute("SELECT name FROM users WHERE email = %s AND password_hash = %s", (email, password_hash))
+    result = settings.cursor.fetchone()
+
+    if result is None:
+        print("Invalid username or password")
+        return
+
+    nickname = result[0]
+    print("Welcome,", nickname)
     client_socket.send(nickname.encode())
 
     receive_thread = threading.Thread(target=receive_messages, args=(client_socket,))

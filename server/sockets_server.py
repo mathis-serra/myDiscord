@@ -1,7 +1,7 @@
 import datetime
 import socket
 import threading
-import server.settings as settings
+import settings as settings
 import time 
 
 
