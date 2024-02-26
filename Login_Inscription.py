@@ -33,7 +33,7 @@ class Authentification():
             
             sql_insert = "INSERT INTO users (first_name, name, email, password_hash) VALUES (%s, %s, %s, %s)"
             settings.cursor.execute(sql_insert, (first_name, name, email, password_hash))
-            settings.db.commit()  # Assurez-vous de commettre les changements
+            settings.db.commit()
             return {"success": True, "message": "Utilisateur enregistré avec succès"}
         except mysql.connector.Error as err:
             print("Erreur lors de l'enregistrement de l'utilisateur:", err)

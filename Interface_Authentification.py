@@ -61,9 +61,9 @@ def handle_register():
     password = password_entry.get_text()
     nom = nom_entry.get_text()
     prenom = prenom_entry.get_text()
-    print(email,password,nom,prenom)
+    print(nom,prenom,email,password)
 
-    result = Authentification().register(email, password, nom, prenom)
+    result = Authentification().register(nom,prenom,email,password)
 
     if result["success"]:
         print("Inscription réussie !")
