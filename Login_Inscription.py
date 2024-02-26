@@ -25,6 +25,9 @@ class Authentification():
         
     def register(self, first_name, name, email, password_hash):
         try:
+            if not email.endswith("@laplateforme.io"):
+                return {"success": False, "message": "L'adresse e-mail doit se terminer par '@laplateforme.io'"}
+        
             sql_check = "SELECT id FROM users WHERE email = %s"
             settings.cursor.execute(sql_check, (email,))
             existing_user = settings.cursor.fetchone()
