@@ -3,7 +3,7 @@ import pygame_gui
 from Bouton import Button
 from Login_Inscription import Authentification
 from homepage.Interface import Interface
-import server.sockets_server
+# import server.sockets_server
 
 pygame.init()
 pygame.mixer.init()
@@ -55,7 +55,7 @@ def handle_login():
         Interface.main()
         connection_fail_message = ""
         Interface.main()
-        socket_server = server.sockets_server.SocketServer()
+        # socket_server = server.sockets_server.SocketServer()
         
     else:
         print("Échec de la connexion :", result["message"])
