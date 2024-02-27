@@ -3,15 +3,12 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from Bouton import Button
 from homepage.Change_profile import Profil
-# import server.sockets_server as socket_server
 
 class Interface():
     def main(email):
         pygame.init()
         pygame.mixer.init()
-        # socket_server.start_server()
-        
-        
+
 
         # Fenetre
         screen_height = 700
@@ -59,10 +56,10 @@ class Interface():
                 profil_button.handle_event(event)
                 messages_button.handle_event(event)
                 channels_button.handle_event(event)
-            
+
             screen.fill((0,0,0))
             base_page.update(email)
-            
+
             if profil_page_run:
                 profile_page.new_rect()
 

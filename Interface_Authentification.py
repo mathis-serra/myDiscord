@@ -54,16 +54,17 @@ def handle_login():
         print("Connexion réussie !")
         Interface.main(email)
         connection_fail_message = ""
+
         Interface.main()
-        
-        
+        # socket_server = server.sockets_server.SocketServer()
+
 
     else:
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
 
 def handle_register():
-    global inscription_fail_message,inscription_success_message
+    
 
     email = email_entry.get_text()
     password = password_entry.get_text()
@@ -94,7 +95,7 @@ def Interface2():
     global interface_first
 
     screen.fill((0, 0, 0))
-    
+
     interface_first=False
     font_title = pygame.font.Font("Assets/Font/MickeyMouse.otf", 200)
     titre_texte = font_title.render('Sficord', True, white)
@@ -116,7 +117,7 @@ def Interface2():
         success_message_render = font_before.render(inscription_success_message, True, (0, 255, 0))
         success_message_rect = success_message_render.get_rect(center=(screen_width // 2, 270))
         screen.blit(success_message_render, success_message_rect)
-    
+
     if inscription_fail_message:
         fail_message_render = font_before.render(inscription_fail_message, True, (255, 0, 0))
         fail_message_rect = fail_message_render.get_rect(center=(screen_width // 2, 270))
@@ -190,7 +191,7 @@ while run:
         show_entry()
         Interface2()
 
-    
+
     manager.update(0.01)
 
     pygame.display.update()

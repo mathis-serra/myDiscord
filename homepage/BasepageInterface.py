@@ -41,7 +41,7 @@ class BasePage():
 
 
         user_info = self.auth.get_user_info(email)
-        
+
         if user_info:
             username_text_render = self.font_before.render(f"{user_info['username']}", True, self.blue)
             username_text_rect = username_text_render.get_rect(topleft=(180, 100))
