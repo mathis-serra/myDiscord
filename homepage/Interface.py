@@ -8,6 +8,7 @@ class Interface():
     def main():
         pygame.init()
         pygame.mixer.init()
+        
 
         # Fenetre
         screen_height = 700
@@ -49,22 +50,22 @@ class Interface():
                 if event.type == pygame.QUIT:
                     run = False
 
-            profil_button.handle_event(event)
-            messages_button.handle_event(event)
-            channels_button.handle_event(event)
+                profil_button.handle_event(event)
+                messages_button.handle_event(event)
+                channels_button.handle_event(event)
             
-            screen.fill((0,0,0))
-            base_page.update()
+                screen.fill((0,0,0))
+                base_page.update()
             
-            if profil_page_run:
-                profile_page.new_rect()
+                if profil_page_run:
+                    profile_page.new_rect()
 
-            if message_page_run:
-                message_page.new_rect()
+                if message_page_run:
+                    message_page.new_rect()
 
-            pygame.display.flip()
+                pygame.display.flip()
 
         pygame.quit()
 
-if __name__ == "__main__":
-    Interface.main()
+# if __name__ == "__main__":
+#     Interface.main()

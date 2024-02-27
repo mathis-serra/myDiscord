@@ -3,6 +3,8 @@ import threading
 import mysql.connector
 import settings 
 
+
+
 def receive_messages(client_socket):
     while True:
         try:
