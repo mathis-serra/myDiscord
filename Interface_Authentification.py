@@ -53,6 +53,7 @@ def handle_login():
         print("Connexion réussie !")
         Interface.main()
         connection_fail_message = ""
+        Interface.main()
     else:
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
