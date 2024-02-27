@@ -51,15 +51,15 @@ def handle_login():
     result = Authentification().login(email, password)
     if result["success"]:
         print("Connexion réussie !")
-        Interface.main()
+        Interface.main(email)
         connection_fail_message = ""
-        Interface.main()
     else:
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
 
 def handle_register():
     global inscription_fail_message,inscription_success_message
+
     email = email_entry.get_text()
     password = password_entry.get_text()
     nom = nom_entry.get_text()

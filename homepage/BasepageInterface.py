@@ -1,5 +1,6 @@
 import pygame
 from Bouton import Button
+from Login_Inscription import Authentification
 
 
 class BasePage():
@@ -14,16 +15,14 @@ class BasePage():
         self.background = pygame.image.load('Assets/Pictures/home_background.png')
         self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
         self.run = True
+        self.auth = Authentification()
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.run = False
 
-    def test(self):
-        print("oui")
-
-    def update(self):
+    def update(self,email):
         self.screen.blit(self.background, (0, 0))
 
         pygame.draw.rect(self.screen, self.beige, (50, 50,300,self.screen_height - 90), border_radius=30)
@@ -40,3 +39,10 @@ class BasePage():
         channels_text_rect = channels_text_render.get_rect(topleft=(128, 355))
         self.screen.blit(channels_text_render, channels_text_rect)
 
+
+        user_info = self.auth.get_user_info(email)
+        
+        if user_info:
+            username_text_render = self.font_before.render(f"{user_info['username']}", True, self.blue)
+            username_text_rect = username_text_render.get_rect(topleft=(180, 100))
+            self.screen.blit(username_text_render, username_text_rect)
