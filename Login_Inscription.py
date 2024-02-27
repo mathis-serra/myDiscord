@@ -25,6 +25,9 @@ class Authentification():
         
     def register(self, first_name, name, email, password_hash):
         try:
+            if not email.endswith("@laplateforme.io"):
+                return {"success": False, "message": "L'adresse e-mail doit se terminer par '@laplateforme.io'"}
+        
             sql_check = "SELECT id FROM users WHERE email = %s"
             settings.cursor.execute(sql_check, (email,))
             existing_user = settings.cursor.fetchone()
@@ -33,7 +36,7 @@ class Authentification():
             
             sql_insert = "INSERT INTO users (first_name, name, email, password_hash) VALUES (%s, %s, %s, %s)"
             settings.cursor.execute(sql_insert, (first_name, name, email, password_hash))
-            settings.db.commit()  # Assurez-vous de commettre les changements
+            settings.db.commit()
             return {"success": True, "message": "Utilisateur enregistré avec succès"}
         except mysql.connector.Error as err:
             print("Erreur lors de l'enregistrement de l'utilisateur:", err)
