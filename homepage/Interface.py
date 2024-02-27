@@ -1,8 +1,8 @@
 import pygame
-from BasepageInterface import BasePage
-from MessagesInterface import Messages
+import homepage.BasepageInterface as BasePage
+import homepage.MessagesInterface as Messages
 from Bouton import Button
-from Change_profile import Profil
+import homepage.Change_profile as Profil
 
 def main():
     pygame.init()
