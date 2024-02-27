@@ -3,7 +3,10 @@ import pygame_gui
 from Bouton import Button
 from Login_Inscription import Authentification
 from homepage.Interface import Interface
+<<<<<<< HEAD
 # import server.sockets_server
+=======
+>>>>>>> e256e934da429f26ec77d1556855fdd7dcae28e8
 
 pygame.init()
 pygame.mixer.init()
@@ -52,17 +55,21 @@ def handle_login():
     result = Authentification().login(email, password)
     if result["success"]:
         print("Connexion réussie !")
-        Interface.main()
+        Interface.main(email)
         connection_fail_message = ""
+<<<<<<< HEAD
         Interface.main()
         # socket_server = server.sockets_server.SocketServer()
         
+=======
+>>>>>>> e256e934da429f26ec77d1556855fdd7dcae28e8
     else:
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
 
 def handle_register():
     global inscription_fail_message,inscription_success_message
+
     email = email_entry.get_text()
     password = password_entry.get_text()
     nom = nom_entry.get_text()

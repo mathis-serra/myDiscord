@@ -5,7 +5,7 @@ from Bouton import Button
 from homepage.Change_profile import Profil
 
 class Interface():
-    def main():
+    def main(email):
         pygame.init()
         pygame.mixer.init()
         
@@ -53,17 +53,20 @@ class Interface():
                 profil_button.handle_event(event)
                 messages_button.handle_event(event)
                 channels_button.handle_event(event)
+                profil_button.handle_event(event)
+                messages_button.handle_event(event)
+                channels_button.handle_event(event)
             
-                screen.fill((0,0,0))
-                base_page.update()
+            screen.fill((0,0,0))
+            base_page.update(email)
             
-                if profil_page_run:
-                    profile_page.new_rect()
+            if profil_page_run:
+                profile_page.new_rect()
 
-                if message_page_run:
-                    message_page.new_rect()
+            if message_page_run:
+                message_page.new_rect()
 
-                pygame.display.flip()
+            pygame.display.flip()
 
         pygame.quit()
 
