@@ -26,7 +26,7 @@ prenom_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((40
 # Variables Couleurs et Texte
 blue = "#143263"
 white = "#ffffff"
-font_before = pygame.font.Font("Data/Font/MickeyMouse.otf", 45)
+font_before = pygame.font.Font("Assets/Font/MickeyMouse.otf", 45)
 email_text_render = font_before.render("Email :", True, white)
 email_text_rect = email_text_render.get_rect(topleft=(260, 300))
 password_text_render = font_before.render("Password :", True, white)
@@ -76,7 +76,7 @@ def Interface2():
     screen.fill((0, 0, 0))
     
     interface_first=False
-    font_title = pygame.font.Font("Data/Font/MickeyMouse.otf", 200)
+    font_title = pygame.font.Font("Assets/Font/MickeyMouse.otf", 200)
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
     inscription2_button.draw(screen)
@@ -97,7 +97,7 @@ def Interface1():
     global interface_first
 
     interface_first=True
-    font_title = pygame.font.Font("Data/Font/MickeyMouse.otf", 200)
+    font_title = pygame.font.Font("Assets/Font/MickeyMouse.otf", 200)
     titre_texte = font_title.render('Sficord', True, white)
     titre_rect = titre_texte.get_rect(center=(screen_width // 2, 200))
     connexion_button.draw(screen)
@@ -117,16 +117,16 @@ connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white
 inscription_button = Button("Inscription", (700, 550), (36, 15), Interface2, white, width=200, height=100)
 inscription2_button = Button("Inscription2", (500, 550), (36, 15), handle_register, white, width=200, height=100)
 return_button = Button("Return", (25, 30), (36, 15), Interface1, white, width=100, height=100)
-register_image = pygame.image.load('Data/Pictures/register.png')
+register_image = pygame.image.load('Assets/Pictures/register.png')
 register_image = pygame.transform.scale(register_image, (730, 350))
-login_image = pygame.image.load('Data/Pictures/login.png')
+login_image = pygame.image.load('Assets/Pictures/login.png')
 login_image = pygame.transform.scale(login_image, (265, 210))
-background = pygame.image.load('Data/Pictures/ghibli_background.jpg')
+background = pygame.image.load('Assets/Pictures/ghibli_background.jpg')
 background = pygame.transform.scale(background, (screen_width+600, screen_height))  
-return_image = pygame.image.load('Data/Pictures/return2.png')
+return_image = pygame.image.load('Assets/Pictures/return2.png')
 return_image = pygame.transform.scale(return_image, (150, 150))
 # Variables son
-pygame.mixer.music.load('Data/Song/Ghibli_song.mp3')
+pygame.mixer.music.load('Assets/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
 
