@@ -1,7 +1,9 @@
 import socket
 import threading
 import mysql.connector
-import settings 
+from settings import settings
+
+
 
 def receive_messages(client_socket):
     while True:

@@ -8,6 +8,7 @@ class Interface():
     def main(email):
         pygame.init()
         pygame.mixer.init()
+        
 
         # Fenetre
         screen_height = 700
@@ -52,6 +53,9 @@ class Interface():
                 profil_button.handle_event(event)
                 messages_button.handle_event(event)
                 channels_button.handle_event(event)
+                profil_button.handle_event(event)
+                messages_button.handle_event(event)
+                channels_button.handle_event(event)
             
             screen.fill((0,0,0))
             base_page.update(email)
@@ -66,5 +70,5 @@ class Interface():
 
         pygame.quit()
 
-if __name__ == "__main__":
-    Interface.main()
+# if __name__ == "__main__":
+#     Interface.main()
