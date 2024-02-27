@@ -1,4 +1,4 @@
-from server.settings import settings
+import server.settings as settings
 import mysql
 
 class Authentification():

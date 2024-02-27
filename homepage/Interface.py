@@ -3,11 +3,14 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from Bouton import Button
 from homepage.Change_profile import Profil
+# import server.sockets_server as socket_server
 
 class Interface():
     def main(email):
         pygame.init()
         pygame.mixer.init()
+        # socket_server.start_server()
+        
         
 
         # Fenetre
