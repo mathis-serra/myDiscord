@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 from Bouton import Button
 from Login_Inscription import Authentification
+from homepage.Interface import Interface
 
 pygame.init()
 pygame.mixer.init()
@@ -50,6 +51,7 @@ def handle_login():
     result = Authentification().login(email, password)
     if result["success"]:
         print("Connexion réussie !")
+        Interface.main()
         connection_fail_message = ""
     else:
         print("Échec de la connexion :", result["message"])

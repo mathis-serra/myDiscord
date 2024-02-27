@@ -1,6 +1,6 @@
 import pygame
-from BasepageInterface import BasePage
-import settings
+from homepage.BasepageInterface import BasePage
+from homepage.settings import settings
 import mysql
 
 class Messages(BasePage):
