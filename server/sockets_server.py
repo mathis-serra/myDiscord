@@ -44,7 +44,8 @@ class Server():
 
 
         def handle(client):
-            while True:
+            run = True
+            while run:
                 try:
                     message = client.recv(1024)
                     if message.decode('utf-8').lower() == "bye":
@@ -59,10 +60,12 @@ class Server():
                     nickname = nicknames[index]
                     broadcast('{} left!'.format(nickname).encode('ascii'), client)
                     nicknames.remove(nickname)
+                    run = False
                     break
 
         def receive():
-            while True:
+            run = False
+            while run:
                 client, address = server.accept()
                 print("Connected with {}".format(str(address)))
 
@@ -76,6 +79,8 @@ class Server():
 
                 thread = threading.Thread(target=handle, args=(client,))
                 thread.start()
+            else :
+                run = False
 
         def close_server():
             for client in clients:
