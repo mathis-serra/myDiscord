@@ -1,7 +1,7 @@
 import pygame
 from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
-from Bouton import Button
+from homepage.Bouton import Button
 from homepage.Change_profile import Profil
 
 class Interface():
