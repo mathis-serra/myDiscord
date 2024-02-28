@@ -3,6 +3,10 @@ import pygame_gui
 from homepage.Bouton import Button
 from Login_Inscription import Authentification
 from homepage.Interface import Interface
+<<<<<<< HEAD
+# import server.sockets_server
+=======
+>>>>>>> e256e934da429f26ec77d1556855fdd7dcae28e8
 
 pygame.init()
 pygame.mixer.init()
@@ -53,6 +57,12 @@ def handle_login():
         print("Connexion réussie !")
         Interface.main(email)
         connection_fail_message = ""
+<<<<<<< HEAD
+        Interface.main()
+        # socket_server = server.sockets_server.SocketServer()
+        
+=======
+>>>>>>> e256e934da429f26ec77d1556855fdd7dcae28e8
     else:
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
