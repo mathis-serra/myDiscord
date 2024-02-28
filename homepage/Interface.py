@@ -3,7 +3,7 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from Bouton import Button
 from homepage.Change_profile import Profil
-from server.sockets_server import Server  
+# from server.sockets_server import Server  
 class Interface():
     def main(email):
         pygame.init()
@@ -27,7 +27,7 @@ class Interface():
             nonlocal profil_page_run, message_page_run
             profil_page_run = False
             message_page_run = True
-            Server.server_main()
+            
 
 
         # Define the colors

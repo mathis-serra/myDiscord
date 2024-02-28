@@ -2,6 +2,7 @@ import pygame
 from homepage.BasepageInterface import BasePage
 from homepage.settings import settings
 import mysql
+from homepage.Chat_window import ChatWindow
 
 class Messages(BasePage):
     def __init__(self, screen):
@@ -33,6 +34,9 @@ class Messages(BasePage):
                 y_position += 50
                 users_displayed += 1
 
+                if user_rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+                    self.connect_to_user(email)  # Connectez-vous à l'utilisateur sélectionné
+
                 if users_displayed % max_users_per_column == 0:
                     y_position = 100
                     x_position += 100
@@ -41,3 +45,10 @@ class Messages(BasePage):
 
         except mysql.connector.Error as err:
             print("Erreur lors de la récupération et de l'affichage des utilisateurs:", err)
+
+    def connect_to_user(self, target_user):
+        chat_window = ChatWindow(self.screen, target_user)
+        chat_window.run()
+
+
+        
