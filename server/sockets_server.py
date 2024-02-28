@@ -89,4 +89,4 @@ class Server():
             server.close()
             print("Server closed.")
 
-        receive()
+        
