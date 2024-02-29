@@ -3,6 +3,7 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from homepage.Bouton import Button
 from homepage.Change_profile import Profil
+from server.sockets_server import Serveur
 
 class Interface():
     def main(email):
@@ -22,10 +23,12 @@ class Interface():
             profil_page_run = True
             message_page_run = False
 
+
         def switch_to_messages():
             nonlocal profil_page_run,message_page_run
             profil_page_run = False
             message_page_run = True
+            Serveur.serveur_main()
 
         # Définir les couleurs
         blue = "#1769aa"
@@ -53,9 +56,6 @@ class Interface():
                 profil_button.handle_event(event)
                 messages_button.handle_event(event)
                 channels_button.handle_event(event)
-                profil_button.handle_event(event)
-                messages_button.handle_event(event)
-                channels_button.handle_event(event)
             
             screen.fill((0,0,0))
             base_page.update(email)
@@ -65,6 +65,7 @@ class Interface():
 
             if message_page_run:
                 message_page.new_rect()
+                message_page.handle_event(event)
 
             pygame.display.flip()
 
