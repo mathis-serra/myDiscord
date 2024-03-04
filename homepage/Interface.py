@@ -44,7 +44,7 @@ class Interface():
         # Initialiser les pages
         base_page = BasePage(screen)
         profile_page = Profil(screen)
-        message_page = Messages(screen)
+        message_page = Messages(screen,email)
 
         # Variables de contrôle pour l'affichage des pages
         run = True

@@ -6,8 +6,9 @@ from homepage.Bouton import Button
 from homepage.Chat import ChatPage
 
 class Messages(BasePage):
-    def __init__(self, screen):
+    def __init__(self, screen, current_user_email):
         super().__init__(screen)
+        self.current_user_email = current_user_email
         self.buttons = []
 
     def new_rect(self):
@@ -50,9 +51,9 @@ class Messages(BasePage):
     def close(self):
         pygame.quit()
 
-    def create_chat(self, user_id):
-        print("Chat started with user ID:", user_id)
-        chat_page = ChatPage(self.screen, user_id) 
+    def create_chat(self, other_user_id):
+        print("Chat started with user ID:", other_user_id)
+        chat_page = ChatPage(self.screen, self.current_user_email, other_user_id) 
         chat_page.run()
         self.close()
 
