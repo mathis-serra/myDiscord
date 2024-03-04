@@ -1,13 +1,20 @@
 import pygame
+import server.settings as settings
 from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from Bouton import Button
 from homepage.Change_profile import Profil
-# from server.sockets_server import Server
+from server.sockets_server import Server
 class Interface():
     def main(self, email):
         pygame.init()
         pygame.mixer.init()
+
+        # Create an instance of the Server class
+        server = Server()
+
+        # Start the server
+        server.start_server()
 
 
 
