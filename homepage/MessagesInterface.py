@@ -3,6 +3,7 @@ from homepage.BasepageInterface import BasePage
 from server.settings import settings
 import mysql
 from homepage.Bouton import Button
+from homepage.Chat import ChatPage
 
 class Messages(BasePage):
     def __init__(self, screen):
@@ -32,7 +33,8 @@ class Messages(BasePage):
                 user_rect = user_text.get_rect(topleft=(x_position, y_position))
                 self.screen.blit(user_text, user_rect)
 
-                button = Button("Show Info", (x_position, y_position-20), (0, 0), lambda u_id=user_id, u_name=username: self.print_user_info(u_id, u_name), (255, 255, 255),width=100, height=50)
+                # Utilisez la classe ChatPage pour créer une nouvelle page de chat lorsque le bouton est cliqué
+                button = Button("Start Chat", (x_position, y_position-20), (0, 0), lambda u_id=user_id: self.create_chat(u_id), (255, 255, 255),width=100, height=50)
                 self.buttons.append(button)
 
                 y_position += 100
@@ -45,15 +47,14 @@ class Messages(BasePage):
         except mysql.connector.Error as err:
             print("Erreur lors de la récupération et de l'affichage des utilisateurs:", err)
 
-    def draw_buttons(self):
-        for button in self.buttons:
-            button.draw(self.screen)
+    def close(self):
+        pygame.quit()
 
-    def print_user_info(self, user_id, username):
-        # Affiche les informations de l'utilisateur lorsque le bouton est cliqué
-        print("Informations de l'utilisateur :")
-        print("User ID:", user_id)
-        print("Username:", username)
+    def create_chat(self, user_id):
+        print("Chat started with user ID:", user_id)
+        chat_page = ChatPage(self.screen, user_id) 
+        chat_page.run()
+        self.close()
 
     def handle_event(self, event):
         for button in self.buttons:
