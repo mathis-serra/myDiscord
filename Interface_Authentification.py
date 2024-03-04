@@ -3,6 +3,7 @@ import pygame_gui
 from Bouton import Button
 from Login_Inscription import Authentification
 from homepage.Interface import Interface
+from server.sockets_server import Server
 
 
 
@@ -177,7 +178,8 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
+            
+        Server().server_main()
         if interface_first:
             manager.process_events(event) 
             connexion_button.handle_event(event)
