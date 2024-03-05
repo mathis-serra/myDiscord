@@ -1,11 +1,8 @@
 import pygame
-<<<<<<< HEAD
-from Bouton import Button
-from server.Login_Inscription import Authentification
-=======
+
 from homepage.Bouton import Button
 from Login_Inscription import Authentification
->>>>>>> server
+
 
 
 class BasePage():

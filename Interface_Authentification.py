@@ -1,18 +1,13 @@
 import pygame
 import pygame_gui
-<<<<<<< HEAD
-from Bouton import Button
-from server.Login_Inscription import Authentification
-from homepage.Interface import Interface
 
 
 
 
-=======
 from homepage.Bouton import Button
 from Login_Inscription import Authentification
 from homepage.Interface import Interface
->>>>>>> server
+
 pygame.init()
 pygame.mixer.init()
 

@@ -1,6 +1,6 @@
 import socket
 import threading
-from server.Login_Inscription import Authentification
+from Login_Inscription import Authentification
 
 class Client:
     def __init__(self):

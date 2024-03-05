@@ -2,12 +2,9 @@ import pygame
 from homepage.BasepageInterface import BasePage
 from server.settings import settings
 import mysql
-<<<<<<< HEAD
-from homepage.Chat_window import ChatWindow
-=======
 from homepage.Bouton import Button
 from homepage.Chat import ChatPage
->>>>>>> server
+
 
 class Messages(BasePage):
     def __init__(self, screen, current_user_email):
@@ -55,14 +52,6 @@ class Messages(BasePage):
         except mysql.connector.Error as err:
             print("Erreur lors de la récupération et de l'affichage des utilisateurs:", err)
 
-<<<<<<< HEAD
-    def connect_to_user(self, target_user):
-        chat_window = ChatWindow(self.screen, target_user)
-        chat_window.run()
-
-
-        
-=======
     def close(self):
         pygame.quit()
 
@@ -75,4 +64,4 @@ class Messages(BasePage):
     def handle_event(self, event):
         for button in self.buttons:
             button.handle_event(event)
->>>>>>> server
+
