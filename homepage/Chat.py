@@ -1,6 +1,6 @@
 import pygame
 from homepage.Bouton import Button
-from server.settings import settings
+import server.settings as settings
 import mysql.connector
 from datetime import datetime
 
