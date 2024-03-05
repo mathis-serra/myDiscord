@@ -43,7 +43,7 @@ connection_fail_message = ""
 
 
 # Fonction de connexion et Interface
-def handle_login(email):
+def handle_login():
     global connection_fail_message
 
     email = email_entry.get_text()

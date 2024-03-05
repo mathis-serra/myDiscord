@@ -1,6 +1,6 @@
 import mysql.connector as mysql
 
-class Settings:
+class settings:
    
     db = mysql.connect(
         host="localhost",

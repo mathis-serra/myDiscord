@@ -1,6 +1,6 @@
 import pygame
 from homepage.BasepageInterface import BasePage
-import server.settings as settings
+from server.settings import settings
 import mysql
 from homepage.Bouton import Button
 from homepage.Chat import ChatPage

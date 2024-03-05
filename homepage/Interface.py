@@ -4,17 +4,17 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from homepage.Bouton import Button
 from homepage.Change_profile import Profil
-from server.sockets_server import Server
+# from server.sockets_server import Server
 class Interface():
-    def main(self, email):
+    def main(email):
         pygame.init()
         pygame.mixer.init()
 
-        # Create an instance of the Server class
-        server = Server()
+        # # Create an instance of the Server class
+        # server = Server()
 
-        # Start the server
-        server.start_server()
+        # # Start the server
+        # server.start_server()
 
 
 
@@ -38,7 +38,7 @@ class Interface():
             profil_page_run = False
             message_page_run = True
             message_user_run = False
-            Server.serveur_main()
+            # Server.serveur_main()
 
             
 
