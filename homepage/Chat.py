@@ -19,6 +19,16 @@ class ChatPage:
         self.background_image = pygame.image.load("Assets/Pictures/home_background.png")
         self.background_image = pygame.transform.scale(self.background_image, (1200, 700))
         self.font = pygame.font.Font(None, 35)
+        self.load_messages()
+
+    def load_messages(self):
+        try:
+            sql = "SELECT content FROM messages WHERE (user_id = %s AND user_friend = %s) OR (user_id = %s AND user_friend = %s) ORDER BY created_at"
+            settings.cursor.execute(sql, (self.user_id, self.current_user_friend, self.current_user_friend, self.user_id))
+            messages = settings.cursor.fetchall()
+            self.chat_messages = [message[0] for message in messages]
+        except mysql.connector.Error as err:
+            print("Erreur lors de la récupération des messages depuis la base de données:", err)
 
     def get_username_from_id(self, id):
         try:
