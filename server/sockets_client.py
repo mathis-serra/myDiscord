@@ -1,11 +1,10 @@
 import socket
 import threading
-from Login_Inscription import Authentification
+from server.Login_Inscription import Authentification
 
 class Client:
-    def __init__(self, email, password_hash):
-        self.email = email
-        self.password_hash = password_hash
+    def __init__(self):
+        pass
 
     def receive_messages(self, client_socket):
         while True:
@@ -18,7 +17,7 @@ class Client:
                 print("An error occurred:", str(e))
                 break
 
-    def start_chat(self):
+    def start_chat(self, email, password):
         host = socket.gethostname()
         port = 5001
 
@@ -26,12 +25,14 @@ class Client:
             client_socket.connect((host, port))
 
             auth = Authentification()
-            login_result = auth.login(self.email, self.password_hash)
+            login_result = auth.login(email, password)
             if not login_result["success"]:
                 print(login_result["message"])
                 return
 
-            nickname = login_result["username"]
+            nickname = login_result.get("username")
+            if nickname is None:
+                nickname = " "
             print("Welcome,", nickname)
             client_socket.send(nickname.encode())
 
@@ -53,6 +54,6 @@ class Client:
 
 if __name__ == "__main__":
     email = input("Enter your email: ")
-    password_hash = input("Enter your password: ")
-    client = Client(email, password_hash)
-    client.start_chat()
+    password = input("Enter your password: ")
+    client = Client()
+    client.start_chat(email, password)

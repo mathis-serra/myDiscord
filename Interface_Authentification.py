@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 from Bouton import Button
-from Login_Inscription import Authentification
+from server.Login_Inscription import Authentification
 from homepage.Interface import Interface
 
 
@@ -45,7 +45,7 @@ connection_fail_message = ""
 
 
 # Fonction de connexion et Interface
-def handle_login():
+def handle_login(email):
     global connection_fail_message
 
     email = email_entry.get_text()
@@ -57,8 +57,8 @@ def handle_login():
         Interface.main(email)
         connection_fail_message = ""
 
-        Interface.main()
-        # socket_server = server.sockets_server.SocketServer()
+        Interface.main(email)
+        
         
 
 

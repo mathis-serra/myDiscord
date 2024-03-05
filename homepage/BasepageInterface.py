@@ -1,6 +1,6 @@
 import pygame
 from Bouton import Button
-from Login_Inscription import Authentification
+from server.Login_Inscription import Authentification
 
 
 class BasePage():

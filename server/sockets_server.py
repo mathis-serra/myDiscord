@@ -2,7 +2,7 @@ import datetime
 import socket
 import threading
 import server.settings as settings
-from Login_Inscription import Authentification
+
 
 class Server:
     def __init__(self):
