@@ -1,9 +1,6 @@
 import pygame
 import pygame_gui
 
-
-
-
 from homepage.Bouton import Button
 from Login_Inscription import Authentification
 from homepage.Interface import Interface

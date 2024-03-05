@@ -4,7 +4,7 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from homepage.Bouton import Button
 from homepage.Change_profile import Profil
-from server.sockets_server import Serveur
+from server.sockets_server import Server
 class Interface():
     def main(self, email):
         pygame.init()
@@ -38,7 +38,7 @@ class Interface():
             profil_page_run = False
             message_page_run = True
             message_user_run = False
-            Serveur.serveur_main()
+            Server.serveur_main()
 
             
 

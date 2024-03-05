@@ -5,7 +5,6 @@ import mysql
 from homepage.Bouton import Button
 from homepage.Chat import ChatPage
 
-
 class Messages(BasePage):
     def __init__(self, screen, current_user_email):
         super().__init__(screen)
@@ -42,9 +41,6 @@ class Messages(BasePage):
                 y_position += 100
                 users_displayed += 1
 
-                if user_rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
-                    self.connect_to_user(email)  # Connectez-vous à l'utilisateur sélectionné
-
                 if users_displayed % max_users_per_column == 0:
                     y_position = 100
                     x_position += 200
@@ -64,4 +60,3 @@ class Messages(BasePage):
     def handle_event(self, event):
         for button in self.buttons:
             button.handle_event(event)
-
