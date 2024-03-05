@@ -1,8 +1,9 @@
 import pygame
 from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
-from Bouton import Button
+from homepage.Bouton import Button
 from homepage.Change_profile import Profil
+from server.sockets_server import Serveur
 
 class Interface():
     def main(email):
@@ -18,15 +19,20 @@ class Interface():
 
         # Définir une fonction pour changer l'état des pages
         def switch_to_profil():
-            nonlocal profil_page_run,message_page_run
+            nonlocal profil_page_run,message_page_run,message_user_run
             profil_page_run = True
             message_page_run = False
+            message_user_run = False
+
 
         def switch_to_messages():
-            nonlocal profil_page_run,message_page_run
+            nonlocal profil_page_run,message_page_run,message_user_run
             profil_page_run = False
             message_page_run = True
+            message_user_run = False
+            Serveur.serveur_main()
 
+            
         # Définir les couleurs
         blue = "#1769aa"
 
@@ -38,21 +44,19 @@ class Interface():
         # Initialiser les pages
         base_page = BasePage(screen)
         profile_page = Profil(screen)
-        message_page = Messages(screen)
+        message_page = Messages(screen,email)
 
         # Variables de contrôle pour l'affichage des pages
         run = True
         profil_page_run = False
         message_page_run = False
+        message_user_run = False
 
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
 
-                profil_button.handle_event(event)
-                messages_button.handle_event(event)
-                channels_button.handle_event(event)
                 profil_button.handle_event(event)
                 messages_button.handle_event(event)
                 channels_button.handle_event(event)
@@ -65,6 +69,9 @@ class Interface():
 
             if message_page_run:
                 message_page.new_rect()
+                message_page.handle_event(event)
+                message_user_run = False
+
 
             pygame.display.flip()
 

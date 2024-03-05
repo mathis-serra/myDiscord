@@ -10,6 +10,7 @@ class Button():
         self.color = color
         self.width = width
         self.height = height
+        self.rect = pygame.Rect(self.position[0], self.position[1], self.width, self.height)  # Créez un rectangle pour le bouton
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, (self.position[0], self.position[1], self.width, self.height))
@@ -20,6 +21,5 @@ class Button():
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            button_rect = pygame.Rect(self.position[0], self.position[1], self.width, self.height)
-            if button_rect.collidepoint(mouse_pos):
+            if self.rect.collidepoint(mouse_pos):  # Utilisez le rectangle pour détecter les clics de souris
                 self.action()
