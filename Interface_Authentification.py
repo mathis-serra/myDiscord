@@ -56,12 +56,6 @@ def handle_login(email):
         print("Connexion réussie !")
         Interface.main(email)
         connection_fail_message = ""
-
-        Interface.main(email)
-        
-        
-
-
     else:
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
