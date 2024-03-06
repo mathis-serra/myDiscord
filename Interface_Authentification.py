@@ -42,6 +42,8 @@ connection_fail_message = ""
 
 
 # Fonction de connexion et Interface
+
+#Methode permettant la connexion à la homepage/page d'accueil si les données sont corrects
 def handle_login():
     global connection_fail_message
 
@@ -57,6 +59,7 @@ def handle_login():
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
 
+#Méthode permettant l'enregistrement des données mis dans le pygame_gui en tant que nouveau utilisateur
 def handle_register():
     global inscription_fail_message,inscription_success_message
 
@@ -77,14 +80,17 @@ def handle_register():
         inscription_fail_message = result["message"]
         inscription_success_message = ""
 
+#Méthode pour cacher les pygame_gui donc les zones de saisi
 def hide_entry():
     nom_entry.hide()
     prenom_entry.hide()
 
+#Méthode pour montrer les pygame_gui donc les zones de saisi
 def show_entry():
     nom_entry.show()
     prenom_entry.show()
 
+#Méthode pour afficher tous les éléments de l'interface pour l'enregistrement d'un nouveau utilisateur
 def Interface2():
     global interface_first
 
@@ -120,6 +126,7 @@ def Interface2():
 
     pygame.display.flip()
 
+#Méthode pour afficher tous les éléments de l'interface pour la connexion de l'utilisateur
 def Interface1():
     global interface_first,connection_fail_message
 
@@ -157,12 +164,13 @@ background = pygame.image.load('Assets/Pictures/ghibli_background.jpg')
 background = pygame.transform.scale(background, (screen_width+600, screen_height))  
 return_image = pygame.image.load('Assets/Pictures/return2.png')
 return_image = pygame.transform.scale(return_image, (150, 150))
+
 # Variables son
 pygame.mixer.music.load('Assets/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
 
-
+#Run et les évènements de la fenetre pygame
 run = True
 interface_first=True
 while run:

@@ -1,10 +1,14 @@
 from server.settings import settings
 import mysql
 
+#Class qui permet de relier python à la db et donc récuperer et utilise les données de la database
 class Authentification():
     def __init__(self):
         pass 
     
+    #Utilisation de la db dans toutes les méthodes
+    
+    #Récupération de la table users pour trouver si l'email et le mot de passe existe pour permettre la connexion
     def login(self, email, password_hash):
         try:
             sql = "SELECT id, password_hash, role FROM users WHERE email = %s"
@@ -22,7 +26,8 @@ class Authentification():
         except mysql.connector.Error as err:
             print("Erreur lors de l'authentification:", err)
             return {"success": False, "message": "Erreur lors de l'authentification"}
-        
+
+    #Récupération des données des arguments de la méthode pour enregistrer dans la database
     def register(self, first_name, name, email, password_hash):
         try:
             if not email.endswith("@laplateforme.io"):
@@ -47,8 +52,7 @@ class Authentification():
             print("Erreur lors de l'enregistrement de l'utilisateur:", err)
             return {"success": False, "message": "Erreur lors de l'enregistrement de l'utilisateur"}
 
-            
-        
+    #Enregistrement d'un nouveau mot de passe en prenant l'email en argument et le changer de la database  
     def change_password_hash(self, email, old_password_hash, new_password_hash):
         login_result = self.login(email, old_password_hash)
         if login_result["success"]:
@@ -62,7 +66,8 @@ class Authentification():
                 return {"success": False, "message": "Erreur lors de la mise à jour du mot de passe"}
         else:
             return {"success": False, "message": login_result["message"]}
-        
+    
+    #Récupération de tous les infors de l'utilisateurs quand on lui met l'email en argument
     def get_user_info(self, email):
         try:
             sql = "SELECT id, first_name, name, email, username, role FROM users WHERE email = %s"
