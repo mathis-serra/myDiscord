@@ -24,16 +24,38 @@ class ChatPage:
     def load_messages(self):
         try:
             sql = "SELECT content FROM messages WHERE (user_id = %s AND user_friend = %s) OR (user_id = %s AND user_friend = %s) ORDER BY created_at"
-            settings.cursor.execute(sql, (self.user_id, self.current_user_friend, self.current_user_friend, self.user_id))
+            settings.cursor.execute(sql, (self.get_id_from_email(self.user_id), self.current_user_email, self.current_user_email, self.get_id_from_email(self.user_id)))
             messages = settings.cursor.fetchall()
             self.chat_messages = [message[0] for message in messages]
         except mysql.connector.Error as err:
             print("Erreur lors de la récupération des messages depuis la base de données:", err)
 
+    def insert_message(self, message):
+        try:
+            sql = "INSERT INTO messages (user_id, user_friend, content, created_at,channel_id,modified_at) VALUES (%s, %s, %s, %s,%s,%s)"
+            values = (self.get_id_from_email(self.user_id), self.current_user_email, message, datetime.now(),0,datetime.now())
+            settings.cursor.execute(sql, values)
+            settings.db.commit()
+            print("Message inserted into database:", message)
+        except mysql.connector.Error as err:
+            print("Erreur lors de l'insertion du message dans la base de données:", err)
+
+
     def get_username_from_id(self, id):
         try:
             sql = "SELECT username FROM users WHERE id = %s"
             settings.cursor.execute(sql, (id,))
+            user = settings.cursor.fetchone()
+            if user:
+                return user[0]
+        except mysql.connector.Error as err:
+            print("Erreur lors de la récupération de l'username de l'utilisateur:", err)
+        return ""
+    
+    def get_id_from_email(self, email):
+        try:
+            sql = "SELECT id FROM users WHERE email = %s"
+            settings.cursor.execute(sql, (email,))
             user = settings.cursor.fetchone()
             if user:
                 return user[0]
@@ -83,6 +105,7 @@ class ChatPage:
         current_time = now.strftime("%H:%M")
         message = f"{self.current_user_username} à {current_time} \n{self.input_text}"
         print("Message sent:", message)
+        self.insert_message(message)
         self.chat_messages.append(message)
         self.input_text = ''
 

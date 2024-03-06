@@ -9,7 +9,7 @@ class Interface():
     def main(email):
         pygame.init()
         pygame.mixer.init()
-        
+
 
         # Fenetre
         screen_height = 700
@@ -71,6 +71,9 @@ class Interface():
                 message_page.new_rect()
                 message_page.handle_event(event)
                 message_user_run = False
+
+                
+                
 
 
             pygame.display.flip()
