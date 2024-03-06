@@ -1,6 +1,6 @@
 import pygame
-from homepage.Bouton import Button
-from server.settings import settings
+from Bouton import Button
+from settings import settings
 import mysql.connector
 from datetime import datetime
 
@@ -87,6 +87,8 @@ class ChatPage:
 
     def run(self):
         run = True
+        pygame.init()  # Initialize the Pygame video system
+        self.screen = pygame.display.set_mode((1200, 700))  # Create a Pygame screen object
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

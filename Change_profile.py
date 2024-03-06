@@ -1,5 +1,5 @@
 import pygame
-from homepage.BasepageInterface import BasePage
+from BasepageInterface import BasePage
 
 class Profil(BasePage):
     def __init__(self,screen):

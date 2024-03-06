@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import server.settings as settings
+import settings as settings
 
 
 class Message:

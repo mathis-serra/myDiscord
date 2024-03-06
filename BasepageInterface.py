@@ -1,6 +1,6 @@
 import pygame
 
-from homepage.Bouton import Button
+from Bouton import Button
 from Login_Inscription import Authentification
 
 

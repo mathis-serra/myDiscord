@@ -1,6 +1,7 @@
 import socket
 import threading
-from Login_Inscription import Authentification
+from Login_Inscription import Authentification  # Import the Authentification class
+import Chat as ChatPage  # Import the ChatPage class
 
 class Client:
     def __init__(self):
@@ -42,8 +43,9 @@ class Client:
             input_thread = threading.Thread(target=self.input_loop, args=(client_socket,))
             input_thread.start()
 
-            receive_thread.join()
-            input_thread.join()
+            # Create and run the ChatPage
+            chat_page = ChatPage.ChatPage(client_socket, 7, "b")
+            chat_page.run()
 
     def input_loop(self, client_socket):
         while True:

@@ -2,6 +2,7 @@ import pygame
 
 class Button():
     def __init__(self, text, position, text_offset, action, color, width=150, height=100):
+        pygame.font.init()
         self.text = text
         self.position = position
         self.text_offset = text_offset

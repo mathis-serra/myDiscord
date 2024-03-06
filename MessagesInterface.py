@@ -1,9 +1,9 @@
 import pygame
-from homepage.BasepageInterface import BasePage
-from server.settings import settings
+from BasepageInterface import BasePage
+from settings import settings
 import mysql
-from homepage.Bouton import Button
-from homepage.Chat import ChatPage
+from Bouton import Button
+from Chat import ChatPage
 
 class Messages(BasePage):
     def __init__(self, screen, current_user_email):
