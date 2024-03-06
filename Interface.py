@@ -10,9 +10,12 @@ class Interface():
         pygame.init()
         pygame.mixer.init()
 
+<<<<<<< HEAD
        
 
 
+=======
+>>>>>>> server
 
         # Fenetre
         screen_height = 700
@@ -77,6 +80,9 @@ class Interface():
                 message_page.new_rect()
                 message_page.handle_event(event)
                 message_user_run = False
+
+                
+                
 
 
 
