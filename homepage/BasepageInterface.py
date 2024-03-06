@@ -2,7 +2,7 @@ import pygame
 from homepage.Bouton import Button
 from Login_Inscription import Authentification
 
-
+#Class, which will be the parent for the sficord page, and will have the application's main elements and functionalities.
 class BasePage():
     def __init__(self, screen):
         self.screen = screen
@@ -17,11 +17,13 @@ class BasePage():
         self.run = True
         self.auth = Authentification()
 
+    #Allows you to exit or have events on the window
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.run = False
 
+    #Method allowing all decoration, rectangles to appear on the interface, i.e. full display
     def update(self,email):
         self.screen.blit(self.background, (0, 0))
 

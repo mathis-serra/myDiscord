@@ -7,24 +7,24 @@ from homepage.Interface import Interface
 pygame.init()
 pygame.mixer.init()
 
-# Fenetre
+#Window
 screen_height = 700
 screen_width = 1200
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Sficord')
 
-# Interface de pygame_gui
+#pygame_gui interface
 manager = pygame_gui.UIManager((screen_width, screen_height))
 email_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 300), (400, 40)),
                                                   manager=manager)
-# Nouvelle zone de saisie juste en dessous de la zone de saisie de l'email
+#New input field just below the email input field
 password_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 360), (400, 40)),
                                                      manager=manager)
 nom_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 420), (400, 40)),
                                                     manager=manager)
 prenom_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 480), (400, 40)),
                                                     manager=manager)
-# Variables Couleurs et Texte
+#Color and text variables
 blue = "#143263"
 white = "#ffffff"
 font_before = pygame.font.Font("Assets/Font/MickeyMouse.otf", 45)
@@ -41,9 +41,9 @@ inscription_success_message = ""
 connection_fail_message = ""
 
 
-# Fonction de connexion et Interface
+#Connection function and Interface
 
-#Methode permettant la connexion à la homepage/page d'accueil si les données sont corrects
+#Method for connecting to homepage if data is correct
 def handle_login():
     global connection_fail_message
 
@@ -59,7 +59,7 @@ def handle_login():
         print("Échec de la connexion :", result["message"])
         connection_fail_message = result["message"]
 
-#Méthode permettant l'enregistrement des données mis dans le pygame_gui en tant que nouveau utilisateur
+#Method for saving data put into pygame_gui as a new user
 def handle_register():
     global inscription_fail_message,inscription_success_message
 
@@ -80,17 +80,17 @@ def handle_register():
         inscription_fail_message = result["message"]
         inscription_success_message = ""
 
-#Méthode pour cacher les pygame_gui donc les zones de saisi
+#Method for hiding pygame_gui, i.e. input zones
 def hide_entry():
     nom_entry.hide()
     prenom_entry.hide()
 
-#Méthode pour montrer les pygame_gui donc les zones de saisi
+#Method for displaying pygame_gui, i.e. input zones
 def show_entry():
     nom_entry.show()
     prenom_entry.show()
 
-#Méthode pour afficher tous les éléments de l'interface pour l'enregistrement d'un nouveau utilisateur
+#Method for displaying all interface elements for new user registration
 def Interface2():
     global interface_first
 
@@ -126,7 +126,7 @@ def Interface2():
 
     pygame.display.flip()
 
-#Méthode pour afficher tous les éléments de l'interface pour la connexion de l'utilisateur
+#Method for displaying all interface elements for user login
 def Interface1():
     global interface_first,connection_fail_message
 
@@ -151,7 +151,7 @@ def Interface1():
         fail_connection_message_rect =fail_connection_message_render.get_rect(center=(screen_width // 2, 270))
         screen.blit(fail_connection_message_render, fail_connection_message_rect)
 
-# Boutons et images
+#Buttons and images
 connexion_button = Button("Connexion", (300, 560), (36, 15), handle_login, white, width=200, height=100)
 inscription_button = Button("Inscription", (700, 550), (36, 15), Interface2, white, width=200, height=100)
 inscription2_button = Button("Inscription2", (500, 550), (36, 15), handle_register, white, width=200, height=100)
@@ -165,12 +165,12 @@ background = pygame.transform.scale(background, (screen_width+600, screen_height
 return_image = pygame.image.load('Assets/Pictures/return2.png')
 return_image = pygame.transform.scale(return_image, (150, 150))
 
-# Variables son
+#Variable sound
 pygame.mixer.music.load('Assets/Song/Ghibli_song.mp3')
 pygame.mixer.music.play(-1)
 
 
-#Run et les évènements de la fenetre pygame
+#Run and pygame window events
 run = True
 interface_first=True
 while run:

@@ -1,14 +1,14 @@
 from server.settings import settings
 import mysql
 
-#Class qui permet de relier python à la db et donc récuperer et utilise les données de la database
+#Class to link python to the db and retrieve and use data from the database
 class Authentification():
     def __init__(self):
         pass 
     
-    #Utilisation de la db dans toutes les méthodes
+    #Use of db in all methods
     
-    #Récupération de la table users pour trouver si l'email et le mot de passe existe pour permettre la connexion
+    #Recover users table to find out if email and password exist to enable connection
     def login(self, email, password_hash):
         try:
             sql = "SELECT id, password_hash, role FROM users WHERE email = %s"
@@ -27,7 +27,7 @@ class Authentification():
             print("Erreur lors de l'authentification:", err)
             return {"success": False, "message": "Erreur lors de l'authentification"}
 
-    #Récupération des données des arguments de la méthode pour enregistrer dans la database
+    #Retrieve data from method arguments to save in database
     def register(self, first_name, name, email, password_hash):
         try:
             if not email.endswith("@laplateforme.io"):
@@ -52,7 +52,7 @@ class Authentification():
             print("Erreur lors de l'enregistrement de l'utilisateur:", err)
             return {"success": False, "message": "Erreur lors de l'enregistrement de l'utilisateur"}
 
-    #Enregistrement d'un nouveau mot de passe en prenant l'email en argument et le changer de la database  
+    #Record a new password by taking the email as argument and changing it from the database 
     def change_password_hash(self, email, old_password_hash, new_password_hash):
         login_result = self.login(email, old_password_hash)
         if login_result["success"]:
@@ -67,7 +67,7 @@ class Authentification():
         else:
             return {"success": False, "message": login_result["message"]}
     
-    #Récupération de tous les infors de l'utilisateurs quand on lui met l'email en argument
+    #Recovers all user info when email is used as argument
     def get_user_info(self, email):
         try:
             sql = "SELECT id, first_name, name, email, username, role FROM users WHERE email = %s"

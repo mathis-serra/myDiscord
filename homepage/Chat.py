@@ -4,6 +4,7 @@ from server.settings import settings
 import mysql.connector
 from datetime import datetime
 
+#Class to create a window for chat between users, and thus the interface and all its functions.
 class ChatPage:
     def __init__(self, screen, user_id, current_user_email):
         self.screen = screen
@@ -21,6 +22,7 @@ class ChatPage:
         self.font = pygame.font.Font(None, 35)
         self.load_messages()
 
+    #Method for loading messages between users that are selected and displayed
     def load_messages(self):
         try:
             sql = "SELECT content FROM messages WHERE (user_id = %s AND user_friend = %s) OR (user_id = %s AND user_friend = %s) ORDER BY created_at"
@@ -30,6 +32,7 @@ class ChatPage:
         except mysql.connector.Error as err:
             print("Erreur lors de la récupération des messages depuis la base de données:", err)
 
+    #Method for logging messages sent to the database interface
     def insert_message(self, message):
         try:
             sql = "INSERT INTO messages (user_id, user_friend, content, created_at,channel_id,modified_at) VALUES (%s, %s, %s, %s,%s,%s)"
@@ -40,7 +43,10 @@ class ChatPage:
         except mysql.connector.Error as err:
             print("Erreur lors de l'insertion du message dans la base de données:", err)
 
+    #Methods for recovering user information
+            
 
+    #Method to retrieve username by id 
     def get_username_from_id(self, id):
         try:
             sql = "SELECT username FROM users WHERE id = %s"
@@ -52,6 +58,7 @@ class ChatPage:
             print("Erreur lors de la récupération de l'username de l'utilisateur:", err)
         return ""
     
+    #Method to retrieve id by email
     def get_id_from_email(self, email):
         try:
             sql = "SELECT id FROM users WHERE email = %s"
@@ -63,6 +70,7 @@ class ChatPage:
             print("Erreur lors de la récupération de l'username de l'utilisateur:", err)
         return ""
     
+    #Method to retrieve username by email
     def get_username_from_email(self, email):
         try:
             sql = "SELECT username FROM users WHERE email = %s"
@@ -74,6 +82,7 @@ class ChatPage:
             print("Erreur lors de la récupération de l'username de l'utilisateur:", err)
         return ""
 
+    #Method for displaying all page elements useful for using chat
     def new_rect(self):
         pygame.draw.rect(self.screen, (255, 255, 255), self.input_box, 2)
         input_text_surface = self.font.render(self.input_text, True, (self.white))
@@ -89,6 +98,7 @@ class ChatPage:
         self.display_chat()
         pygame.display.update()
 
+    #Method for displaying messages on the interface
     def display_chat(self):
         chat_y = 50
         for message in self.chat_messages:
@@ -100,6 +110,7 @@ class ChatPage:
 
         pygame.display.update()
 
+    #Method for sending the message as a string
     def send_message(self):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
@@ -109,6 +120,7 @@ class ChatPage:
         self.chat_messages.append(message)
         self.input_text = ''
 
+    #Method for making keyboard events
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
@@ -118,6 +130,7 @@ class ChatPage:
             else:
                 self.input_text += event.unicode
 
+    #Method for starting the page and displaying all elements and functions
     def run(self):
         run = True
         while run:
