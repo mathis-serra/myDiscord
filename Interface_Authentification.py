@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-
+import sockets_server as Server
 from Bouton import Button
 from Login_Inscription import Authentification
 from Interface import Interface
@@ -52,6 +52,7 @@ def handle_login():
     result = Authentification().login(email, password)
     if result["success"]:
         print("Connexion réussie !")
+        Server.Server().start_server()
         Interface.main(email)
         connection_fail_message = ""
     else:

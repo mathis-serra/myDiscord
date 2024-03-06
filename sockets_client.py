@@ -33,7 +33,7 @@ class Client:
 
             nickname = login_result.get("username")
             if nickname is None:
-                nickname = " "
+                nickname = "Anonymous"
             print("Welcome,", nickname)
             client_socket.send(nickname.encode())
 
