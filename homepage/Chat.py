@@ -16,7 +16,7 @@ class ChatPage():
         self.input_box = pygame.Rect(50, 600, 700, 32)
         self.input_text = ''
         self.white = "#ffffff" 
-        self.send_button = Button("Send", (770, 600), (0, 0), self.send_message, self.white, width=100, height=40) 
+        self.send_button = Button("Send", (770, 600), (0, 0), self.send_message, self.white, width=70, height=25) 
         self.background_image = pygame.image.load("Assets/Pictures/home_background.png")
         self.background_image = pygame.transform.scale(self.background_image, (1200, 700))
         self.font = pygame.font.Font(None, 35)
