@@ -1,7 +1,7 @@
 import socket
 import threading
 import mysql.connector
-from homepage.settings import settings
+import settings
 
 
 
