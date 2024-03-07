@@ -4,6 +4,7 @@ from homepage.MessagesInterface import Messages
 from homepage.Bouton import Button
 from homepage.Change_profile import Profil
 from server.sockets_server import Serveur
+from homepage.ChannelInterface import MessagesChannels
 
 #Class to launch the home page window with all imports from all page classes
 class Interface():
@@ -22,18 +23,25 @@ class Interface():
 
         #Method to change the page to the profile page
         def switch_to_profil():
-            nonlocal profil_page_run,message_page_run,message_user_run
+            nonlocal profil_page_run,message_page_run,messagechannels_page_run
             profil_page_run = True
             message_page_run = False
-            message_user_run = False
+            messagechannels_page_run=False
 
         #Method to change the page to the messages page
         def switch_to_messages():
-            nonlocal profil_page_run,message_page_run,message_user_run
+            nonlocal profil_page_run,message_page_run,messagechannels_page_run
             profil_page_run = False
             message_page_run = True
-            message_user_run = False
+            messagechannels_page_run=False
             Serveur.serveur_main()
+
+        def switch_to_channels():
+            nonlocal profil_page_run,message_page_run,messagechannels_page_run
+            profil_page_run = False
+            message_page_run = False
+            messagechannels_page_run=True
+
 
             
         #Define colors
@@ -42,18 +50,19 @@ class Interface():
         #Create buttons
         profil_button = Button("Profil", (70, 80), (36, 15), switch_to_profil, blue, width=90, height=80)
         messages_button = Button("Messages", (70, 220), (36, 15), switch_to_messages, blue, width=260, height=65)
-        channels_button = Button("Channels", (70, 340), (36, 15), switch_to_messages, blue, width=260, height=65)
+        channels_button = Button("Channels", (70, 340), (36, 15), switch_to_channels, blue, width=260, height=65)
 
         #Initialize pages
         base_page = BasePage(screen)
         profile_page = Profil(screen)
         message_page = Messages(screen,email)
+        messagechannels_page =MessagesChannels(screen,email)
 
         #Control variables for page display
         run = True
         profil_page_run = False
         message_page_run = False
-        message_user_run = False
+        messagechannels_page_run=False
 
         while run:
             for event in pygame.event.get():
@@ -73,7 +82,12 @@ class Interface():
             if message_page_run:
                 message_page.new_rect()
                 message_page.handle_event(event)
-                message_user_run = False
+
+            if messagechannels_page_run:
+                messagechannels_page.new_rect()
+                messagechannels_page.handle_event(event)
+
+
 
                 
                 
