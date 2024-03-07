@@ -1,12 +1,8 @@
 import mysql.connector as mysql
 
-<<<<<<< HEAD
-class settings:
-   
-=======
 
 class settings():
->>>>>>> server
+
     db = mysql.connect(
         host="localhost",
         user="root",
@@ -16,7 +12,3 @@ class settings():
     cursor = db.cursor()
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> server

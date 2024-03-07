@@ -3,11 +3,7 @@ import pygame_gui
 import sockets_server as Server
 from Bouton import Button
 from Login_Inscription import Authentification
-<<<<<<< HEAD
 from Interface import Interface
-=======
-from homepage.Interface import Interface
->>>>>>> server
 
 pygame.init()
 pygame.mixer.init()

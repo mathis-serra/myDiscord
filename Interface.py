@@ -10,12 +10,6 @@ class Interface():
         pygame.init()
         pygame.mixer.init()
 
-<<<<<<< HEAD
-       
-
-
-=======
->>>>>>> server
 
         # Fenetre
         screen_height = 700
