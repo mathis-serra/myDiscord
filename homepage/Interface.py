@@ -3,7 +3,6 @@ from homepage.BasepageInterface import BasePage
 from homepage.MessagesInterface import Messages
 from homepage.Bouton import Button
 from homepage.Change_profile import Profil
-from server.sockets_server import Serveur
 from homepage.ChannelInterface import MessagesChannels
 
 #Class to launch the home page window with all imports from all page classes
@@ -34,7 +33,6 @@ class Interface():
             profil_page_run = False
             message_page_run = True
             messagechannels_page_run=False
-            Serveur.serveur_main()
 
         def switch_to_channels():
             nonlocal profil_page_run,message_page_run,messagechannels_page_run

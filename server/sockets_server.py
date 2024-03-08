@@ -1,7 +1,7 @@
 import datetime
 import socket
 import threading
-import settings as settings
+from server.settings import settings
 
 
 class Server:
@@ -11,20 +11,20 @@ class Server:
         self.server_socket = socket.socket()
         self.clients = {}
         self.nicknames = {}
-
+#start the server in the host on port 5001
     def start_server(self):
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(2)
         print("Server is listening...")
-
+#send the message to the client 
     def send_message(self, content, recipient):
         recipient.send(content.encode())
-
+#display the messages to all clients 
     def broadcast(self, message, sender_nickname):
         for nickname, client_socket in self.clients.items():
             if nickname != sender_nickname:
                 self.send_message(message, client_socket)
-
+#handle the connexion from the client 
     def handle_client(self, client_socket, nickname):
         while True:
             try:
@@ -34,7 +34,7 @@ class Server:
             except Exception as e:
                 print("An error occurred:", str(e))
                 break
-
+# accept the connnexion if the username and password are True 
     def accept_clients(self):
         while True:
             client_socket, address = self.server_socket.accept()
@@ -49,7 +49,7 @@ class Server:
 
             thread = threading.Thread(target=self.handle_client, args=(client_socket, nickname))
             thread.start()
-
+# close the server 
     def close_server(self):
         for client_socket in self.clients.values():
             client_socket.send("Server is closing...".encode())
