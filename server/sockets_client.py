@@ -1,7 +1,7 @@
 import socket
 import threading
 import mysql.connector
-from server.settings import settings
+from settings import settings
 
 
 # receive the messages from the server

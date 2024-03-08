@@ -1,7 +1,7 @@
 import datetime
 import socket
 import threading
-from server.settings import settings
+from settings import settings
 
 
 class Server:
